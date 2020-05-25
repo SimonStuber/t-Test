@@ -1,0 +1,132 @@
+- Class: meta
+  Course: t_Tests
+  Lesson: t_Tests
+  Author: Simon Stuber
+  Type: Standard
+  Organization: Universitaet Koblenz/Landau
+  Version: 2.4.5
+
+- Class: text
+  Output: In dieser Lesson, beschaeftigen wir uns mit t-Tests. Heute arbeiten wir nicht mit echten Daten, sondern generieren eigene, kuenstliche Daten. 
+  
+- Class: cmd_question
+  Output: Daten werden immer zufaellig generiert. Da wir aber sicherstellen wollen, dass wir alle den gleichen Datensatz haben, muessen wir zuerst einen Befehl ausfuehren der das garantiert. Fuehren Sie dazu bitte den Befehl "set.seed(42)" aus. 
+  CorrectAnswer: set.seed(42)
+  AnswerTests: omnitest(correctExpr='set.seed(42)')
+  Hint: Der Befehl lautet "set.seed(42)". 
+  
+- Class: cmd_question
+  Output: Zuerst generieren wir normalverteilte Daten mit einem Mittelwert von 0 und einer Standardabweichung von 1. Dafuer verwenden wir den rnorm() Befehl. Schauen Sie sich die Funktion an und generieren Sie 100 Observationen mit den genannten Parametern von mean=0 und sd=1. Speichern Sie die generierten Daten in einem Objekt mit dem Namen "datenGruppe1". 
+  CorrectAnswer: datenGruppe1 <- rnorm(100, mean=0, sd=1)
+  AnswerTests: omnitest(correctExpr='datenGruppe1 <- rnorm(100, mean=0, sd=1)')
+  Hint: Der Befehl lautet "datenGruppe1 <- rnorm(100, mean=0, sd=1)"
+
+- Class: cmd_question
+  Output: Lassen Sie sich die Daten nun ausgeben mit dem Befehl "datenGruppe1"
+  CorrectAnswer: datenGruppe1
+  AnswerTests: omnitest(correctExpr='datenGruppe1')
+  Hint: Der Befehl lautet "datenGruppe1"
+
+- Class: text
+  Output: Wie Sie sehen, gibt es nun 100 Observationen die um den Mittelwert von 0 verteilt sind, mit einem mittleren Abstand zum Mittelwert von 1. Einige Datenpunkte liegen weiter vom Mittelwert entfernt, andere liegen dichter am Mittelwert. Daten die normalverteilt sind mit einem Mittewert von 0 und einer Standardabweichung von 1, nennt man auch standardnormalverteilte Daten. Z-Werte sind immer standardnormalverteilt. Wir koennen uns unsere Daten also vorstellen, als eine Verteilung von z-Werten. 
+
+- Class: cmd_question
+  Output: Plotten Sie nun ein Histogramm fuer diese Daten. Verwenden Sie keine weiteren Argumente. Wir wollen nur eine schnelle visuelle Darstellung der Daten bekommen, keine besonders schoene Grafik. 
+  CorrectAnswer: hist(datenGruppe1)
+  AnswerTests: omnitest(correctExpr='hist(datenGruppe1)')
+  Hint: Der korrekte Befehl lautet "hist(datenGruppe1)"
+
+- Class: text
+  Output: Wie erwartet, sehen die Daten normalverteilt aus. Die meisten Datenpunkte liegen dicht am Mittelwert und zu den Raendern hin flacht die Kurve ab. 
+
+
+- Class: cmd_question
+  Output: Mit der qnorm() Funktion, koennen wir uns nun die kritischen Z-Werte ausgeben lassen. Wir haben bereits gesehen, dass wir zu den Raendern hin immer weniger Werte beobachten. Nur ein kleiner Prozentsatz aller Daten, liegt sehr weit rechts bzw. sehr weit links. Mit qnorm() koennen wir nun ermitteln, unter bzw. ueber welchem Wert 95% der Datenpunkte liegen. Diese Grenzwerte, sind die kritischen z-Werte. Fuehren Sie hierfuer den Befehl "qnorm(c(.025,.975))" aus. 
+  CorrectAnswer: qnorm(c(.025,.975))
+  AnswerTests: omnitest(correctExpr='qnorm(c(.025,.975))')
+  Hint: Der Befehl lautet "qnorm(c(.025,.975))"
+  
+
+- Class: text
+  Output: 95% der Datenpunkte liegen also zwischen -1.96 und 1.96. Dabei liegen 2.5% ueber 1.96 und 2.5% unter -1.96. Stellen Sie sich vor, wir haetten nun einen einzelnen Wert vor uns und muessten entscheiden ob der Wert zu unseren generierten Daten gehoert, oder eher zu einem anderen Datensatz. Wenn wir einen einzelnen Wert von 2 observieren, dann koennen wir nicht mit Sicherheit sagen, ob dieser Wert nun zu unseren Daten gehoert die wir generiert haben (mit einem Mittelwert von 0 und einer Standardabweichung von 1). Da es nur 2.5% gibt, die ueber 1.96 liegen, ist es eher unwahrscheinlich, dass der einzelne Wert von 2 tatsaechlich zu den Daten gehoert die wir generiert haben. Natuerlich ist es moeglich, aber es ist nicht sehr wahrscheinlich. Aber wie wahrscheinlich ist es? Dafuer berechnen wir den P-Wert. 
+
+- Class: cmd_question
+  Output: Fuehren Sie den Befehl "1 - pnorm(2)" aus. 
+  CorrectAnswer: 1 - pnorm(2)
+  AnswerTests: omnitest(correctExpr='1 - pnorm(2)')
+  Hint: Der Befehl lautet "1 - pnorm(2)"
+
+- Class: text
+  Output: Der P-Wert ist also .023. Dieser Wert gibt an, wie wahrscheinlich es ist, dass ein Wert von 2 oder hoeher zu uneseren generierten Daten gehoert. Die Wahrscheinlichkeit ist also nur etwa 2.3%. Da diese Wahrscheinlichkeit sehr gering ist, gehen wir also davon aus, dass der Wert nicht zu unseren generierten Daten gehoert. In der Psychologie, verwenden wir fuer die Entscheidungsfindung i.d.R. ein Signifikanzniveau von .05. Liegt der P-Wert darunter, sprechen wir von Signifikanz. In unseren Beispiel, wuerden wir also sagen, dass der Wert von 2 signifikant hoeher ist, als wir es bei einer Standardnormalverteilung erwarten wuerden, da der p-Wert <.05 ist.  
+
+- Class: text
+  Output: In unserem Beispiel, haben wir gesehen, wie man testen kann, ob ein bestimmter z-Wert signifikant hoeher ist, als man unter einer Standardnormalverteilung vermuten wuerde. Mit einem t-Test verfolgen wir aber ein etwas anderes Ziel. Hier wollen wir z.B. wissen, ob sich die Mittelwerte zweier Gruppen signifikant unterscheiden. Die Logik aehnelt aber unsere z-Werte-Beispiel. Allerdings basiert der t-Test nicht auf einer Standardnormalverteilung, sonder auf einer t-Verteilung. Und anstelle eines z-Wertes, basiert der t-Test auf t-Werten. In einem t-Test fuer zwei unabhaengige Stichproben, gibt die t-Verteilung Auskunft ueber die Verteilung der Mittelwertsdifferenzen (die Differenz von den beiden Gruppen). Diese t-Verteilung, hat einen Mittelwert von 0. Wenn wir einen t-Test ausfuehren, berechnen wir einen einzelnen t-Wert der auf unserem Gruppenvergleich beruht. Dieser t-Wert, wird dann mit der t-Verteilung verglichen. Liegt der t-Wert unseres Gruppenvergleichs ueber dem kritischen t-Wert (also sehr weit von 0 entfernt), sprechen wir von Signifikanz; Die Differenz der beiden Gruppen ist dann signifikant von 0 verschieden. 
+  
+- Class: text
+  Output: In R gibt es eine Funktion die uns die einzelnen Arbeitsschritte abnimmt. Das ist die t.test() Funktion. Bevor wir zwei Gruppen im t-Test miteinander vergleichen, wollen wir Daten fuer eine zweite Gruppe generieren. Wir wollen nun Daten generieren mit einem Mittelwert von 3 und einer Standardabweichung von 1. Dafuer werden wir genauso verfahren wie beim Generieren der Daten fuer die erste Gruppe - wir verwenden also die rnorm() Funktion. 
+
+- Class: cmd_question
+  Output: Zuerst, wollen wir wieder garantieren, dass wir alle die gleichen zufaellig generierten Daten bekommen. Tippen Sie hierfuer "set.seed(42)". 
+  CorrectAnswer: set.seed(42)
+  AnswerTests: omnitest(correctExpr='set.seed(42)')
+  Hint: Der Befehl lautet "set.seed(42)"
+
+- Class: cmd_question
+  Output: Generieren Sie nun einen Datensatz mit dem Namen "datenGruppe2" mit der rnorm() Funktion mit einem Mittelwert von 3 und einer Standardabweichung von 1 und einer Stichprobengroesse von n=100. 
+  CorrectAnswer: datenGruppe2 <- rnorm(100, mean=3, sd=1)
+  AnswerTests: omnitest(correctExpr='datenGruppe2 <- rnorm(100, mean=3, sd=1)')
+  Hint: Der Befehl lautet "datenGruppe2 <- rnorm(100, mean=3, sd=1)"
+
+- Class: text
+  Output: Nun haben wir Daten von zwei unabhaengigen Stichproben mit gleichen Varianzen (bzw. Standardabweichungen). Wenn wir die Mittelwerte dieser beiden Gruppen vergleichen wollen, muessen wir den t-Test fuer unabhaengige Stichproben und fuer gleiche Varianzen ausfuehren. Vorraussetzung dieses t-Tests ist, dass unsere Daten normalverteilt sind. Das koennen wir mit einem Shapiro-Wilk Test pruefen. Dieser Test, vergleicht die eingegebenen Daten, mit einer Normalverteilung und prueft, ob die beiden Verteilung voneinander verschieden sind. Die Nullhypothese ist, dass die beiden Verteilungen nicht zu unterscheiden sind. 
+  
+- Class: cmd_question
+  Output: Fuehren Sie den Befehl "shapiro.test(datenGruppe1)"
+  CorrectAnswer: shapiro.test(datenGruppe1)
+  AnswerTests: omnitest(correctExpr='shapiro.test(datenGruppe1)')
+  Hint: Der Befehl lautet "shapiro.test(datenGruppe1)"
+
+- Class: mult_question
+  Output: Was sagt Ihnen der p-Wert des Shapiro-Wilk Tests?
+  AnswerChoices: Die Daten weichen nicht signifikant von einer Normalverteilung ab; Die Daten weichen signifikant von einer Normalverteilung ab; Die Daten sind nicht signifikant normalverteilt. 
+  CorrectAnswer: Die Daten weichen nicht signifikant von einer Normalverteilung ab
+  AnswerTests: omnitest(correctVal= 'Die Daten weichen nicht signifikant von einer Normalverteilung ab')
+  Hint: Die Nullhypothese ist, dass die Daten nicht von einer Normalverteilung abweichen. Da der p-Wert groesser ist als .05, koennen wir die Nullhypothese nicht verwerfen. 
+
+- Class: text
+  Output: Die Daten fuer Grupe 1 sind also normalverteilt. Das haben wir erwartet da wir unsere Daten ja mit der rnorm() Funktion unter einer Standardnormalverteilung (Mittelwert=0, sd=1) erstellt haben. Da wir auch die Daten der zweiten Gruppe mit der rnorm() Funktion erstellt haben, wissen wir, dass auch diese Daten normalverteilt sind. Wir muessen das also nicht noch einmal ueberpruefen.    
+  
+- Class: text
+  Output: Bevor wir gleich unseren t-Test ausfuehren, muessen wir ausserdem testen ob beide Stichproben gleiche Varianzen haben. Der passende Test hierfuer, ist der Levene-Test, aus dem "car" Paket.   
+  
+- Class: cmd_question
+  Output: Laden Sie das Paket "car"
+  CorrectAnswer: library(car)
+  AnswerTests: omnitest(correctExpr='library(car)')
+  Hint: Der Befehl lautet "library(car)"
+
+- Class: cmd_question
+  Output: Kopieren Sie den folgenden Befehl und fuehren Sie ihn aus; "leveneTest(c(datenGruppe1,datenGruppe2)~as.factor(c(rep("Gruppe1",100),rep("Gruppe2",100))), center=mean)"
+  CorrectAnswer: leveneTest(c(datenGruppe1,datenGruppe2)~as.factor(c(rep("Gruppe1",100),rep("Gruppe2",100))), center=mean)
+  AnswerTests: omnitest(correctExpr='leveneTest(c(datenGruppe1,datenGruppe2)~as.factor(c(rep("Gruppe1",100),rep("Gruppe2",100))), center=mean)')
+  Hint: Der Befehl lautet "leveneTest(c(datenGruppe1,datenGruppe2)~as.factor(c(rep("Gruppe1",100),rep("Gruppe2",100))), center=mean)"
+
+  
+- Class: text
+  Output: Das Testergebnis ist nicht signifikant. Die Varianzen der beiden Gruppen unterscheiden sich also nicht voneinander. Da wir unsere Daten fuer beide Gruppen mit sd=1 generiert haben, haben wir dieses Testergebnis auch erwartet. Wir koennen nun den passenden t-Test ausfuehren, fuer unabhaengige Gruppen und gleiche Varianzen.  
+
+- Class: cmd_question
+  Output: Fuehren Sie den Befehl "t.test(datenGruppe1, datenGruppe2, var.equal = TRUE)" aus. 
+  CorrectAnswer: t.test(datenGruppe1, datenGruppe2, var.equal = TRUE)
+  AnswerTests: omnitest(correctExpr='t.test(datenGruppe1, datenGruppe2, var.equal = TRUE)')
+  Hint: Der Befehl lautet "t.test(datenGruppe1, datenGruppe2, var.equal = TRUE)". 
+
+- Class: text
+  Output: Der p-Wert ist deutlich kleiner als .05. Wir haben also einen signifikanten Unterschied zweischen den beiden Gruppen. 
+
+
+- Class: text
+  Output: Neben dem t-Test fuer unabhaengige Gruppen und gleiche Varianzen, gibt es auch t-Tests fuer ungleiche Varianzen, t-Tests fuer abhaengige Stichproben und Einstichproben-t-Tests. Fuer all diese Test, gibt es in R die t.test() Funktion. Sie muessen allerdings gut auf die entpsrechenden Argumente achten um den gewuenschten t-Test auszufuehren. Bevor Sie Ihre eigenen Daten analysieren, sollten Sie sich also die Zeit nehmen und gut ueberlegen, welchen Test sie benoetigen, und dann die entsprechenden Funktionen bzw. Argumente in R festlegen.  
+
+- Class: text
+  Output: Das war die Lesson zum t-Test. Bis naechste Woche!
